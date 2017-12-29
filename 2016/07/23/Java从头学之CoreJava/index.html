@@ -220,6 +220,13 @@
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#语言的发展"><span class="toc-number">1.</span> <span class="toc-text">语言的发展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java环境配置"><span class="toc-number">2.</span> <span class="toc-text">java环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HelloWorld"><span class="toc-number">3.</span> <span class="toc-text">HelloWorld</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标识符命名规则"><span class="toc-number">4.</span> <span class="toc-text">标识符命名规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型"><span class="toc-number">5.</span> <span class="toc-text">数据类型</span></a></li></ol>
+ 
+  </div>
+
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
@@ -314,6 +321,8 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });

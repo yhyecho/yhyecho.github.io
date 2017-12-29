@@ -234,6 +234,13 @@
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JDBC-Java-Database-Connection"><span class="toc-number">1.</span> <span class="toc-text">JDBC (Java Database Connection)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Connection接口-用于建立数据库连接"><span class="toc-number">1.0.1.</span> <span class="toc-text">Connection接口 (用于建立数据库连接)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Statement接口-用于执行静态sql语句并返回它所生成结果的对象"><span class="toc-number">1.0.2.</span> <span class="toc-text">Statement接口 (用于执行静态sql语句并返回它所生成结果的对象)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ResultSet接口"><span class="toc-number">1.0.3.</span> <span class="toc-text">ResultSet接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JDBC中的批处理"><span class="toc-number">1.0.4.</span> <span class="toc-text">JDBC中的批处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#事务-一组要么同时执行成功-要么同时执行失败的sql语句-是数据库操作的一个执行单元"><span class="toc-number">1.0.5.</span> <span class="toc-text">事务 (一组要么同时执行成功,要么同时执行失败的sql语句.是数据库操作的一个执行单元)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#时间类型-java-util-Date"><span class="toc-number">1.0.6.</span> <span class="toc-text">时间类型 (java.util.Date)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CLOB-Character-Large-Object-文本大对象操作"><span class="toc-number">1.0.7.</span> <span class="toc-text">CLOB(Character Large Object)文本大对象操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BLOB-Binary-Large-Object-二进制大对象操作"><span class="toc-number">1.0.8.</span> <span class="toc-text">BLOB(Binary Large Object)二进制大对象操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#简单封装、资源文件Properties处理连接信息"><span class="toc-number">1.0.9.</span> <span class="toc-text">简单封装、资源文件Properties处理连接信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ORM-Object-Relationship-Mapping-原理-使用Object数组存储一条记录"><span class="toc-number">1.0.10.</span> <span class="toc-text">ORM(Object Relationship Mapping)原理[使用Object数组存储一条记录]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用Map来封装一条记录"><span class="toc-number">1.0.11.</span> <span class="toc-text">使用Map来封装一条记录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用JavaBean来封装一条记录"><span class="toc-number">1.0.12.</span> <span class="toc-text">使用JavaBean来封装一条记录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#java调用存储过程"><span class="toc-number">1.0.13.</span> <span class="toc-text">java调用存储过程</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
@@ -328,6 +335,8 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
