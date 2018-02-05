@@ -40,7 +40,7 @@
 				<h1 class="site-name"><a href="/" title="echo home">echo home</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -56,7 +56,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:www.yhyecho.com">
 					</form>
 					
@@ -79,14 +79,14 @@
 		<a href="/about" title="yhyecho" target="_blank" itemprop="author">yhyecho</a>
 		
   <p class="article-time">
-    <time datetime="2016-09-09T12:12:00.000Z" itemprop="datePublished"> Published 2016-09-09</time>
+    <time datetime="2016-09-09T12:12:00.000Z" itemprop="datePublished"> 发表于 2016-09-09</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目录</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#设计模式分类"><span class="toc-number">1.</span> <span class="toc-text">设计模式分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#单例模式（应用场景、饿汉式、懒汉式）"><span class="toc-number">1.1.</span> <span class="toc-text">单例模式（应用场景、饿汉式、懒汉式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单例模式（双重检查锁式、静态内部类式、枚举式、UML、类图）"><span class="toc-number">1.2.</span> <span class="toc-text">单例模式（双重检查锁式、静态内部类式、枚举式、UML、类图）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单例模式（反射和反序列化漏洞、多线程环境、CountDownLatch同步类的使用）"><span class="toc-number">1.3.</span> <span class="toc-text">单例模式（反射和反序列化漏洞、多线程环境、CountDownLatch同步类的使用）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单工厂模式（面向对象设计原则、开闭原则、依赖反转原则、迪米特法则）-虽然某种程度不符合设计原则，但实际使用最多"><span class="toc-number">1.4.</span> <span class="toc-text">简单工厂模式（面向对象设计原则、开闭原则、依赖反转原则、迪米特法则）[虽然某种程度不符合设计原则，但实际使用最多]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#工厂方法模式详解-不修改已有类的前提下，通过增加新的工厂类实现扩展"><span class="toc-number">1.5.</span> <span class="toc-text">工厂方法模式详解 [不修改已有类的前提下，通过增加新的工厂类实现扩展]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象工厂模式详解-不可以增加产品，可以增加产品族"><span class="toc-number">1.6.</span> <span class="toc-text">抽象工厂模式详解 [不可以增加产品，可以增加产品族]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建造者模式详解（类图关系）"><span class="toc-number">1.7.</span> <span class="toc-text">建造者模式详解（类图关系）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型模式（Prototype、浅复制、深复制、Clonable接口）"><span class="toc-number">1.8.</span> <span class="toc-text">原型模式（Prototype、浅复制、深复制、Clonable接口）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型模式（反序列化实现深复制、效率对比、创建型模式总结）"><span class="toc-number">1.9.</span> <span class="toc-text">原型模式（反序列化实现深复制、效率对比、创建型模式总结）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#适配器模式（对象适配器、类适配器、开发场景）"><span class="toc-number">1.10.</span> <span class="toc-text">适配器模式（对象适配器、类适配器、开发场景）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代理模式（静态代理）"><span class="toc-number">1.11.</span> <span class="toc-text">代理模式（静态代理）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代理模式（动态代理、开发中常见的场景）"><span class="toc-number">1.12.</span> <span class="toc-text">代理模式（动态代理、开发中常见的场景）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#桥接模式（多层继承结构、银行日志管理、管理系统消息管理、人力资源的奖金计算）"><span class="toc-number">1.13.</span> <span class="toc-text">桥接模式（多层继承结构、银行日志管理、管理系统消息管理、人力资源的奖金计算）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合模式（树状结构、杀毒软件架构、JUnit底层架构、常见开发场景）"><span class="toc-number">1.14.</span> <span class="toc-text">组合模式（树状结构、杀毒软件架构、JUnit底层架构、常见开发场景）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#装饰模式（IO流底层架构、装饰和桥接模式的区别）"><span class="toc-number">1.15.</span> <span class="toc-text">装饰模式（IO流底层架构、装饰和桥接模式的区别）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外观模式（公司注册流程、迪米特法则）"><span class="toc-number">1.16.</span> <span class="toc-text">外观模式（公司注册流程、迪米特法则）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#享元模式（享元池、内部状态、外部状态、线程池、连接池）"><span class="toc-number">1.17.</span> <span class="toc-text">享元模式（享元池、内部状态、外部状态、线程池、连接池）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#责任链模式（公文审批、供应链系统的采购审批、异常链、过滤器和拦截器调用过程）"><span class="toc-number">1.18.</span> <span class="toc-text">责任链模式（公文审批、供应链系统的采购审批、异常链、过滤器和拦截器调用过程）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代器模式（JDK内置迭代器、内部类迭代器）"><span class="toc-number">1.19.</span> <span class="toc-text">迭代器模式（JDK内置迭代器、内部类迭代器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中介者模式（同事协作类、内部类实现）"><span class="toc-number">1.20.</span> <span class="toc-text">中介者模式（同事协作类、内部类实现）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令模式（数据库事务机制底层架构实现、撤销和回复）"><span class="toc-number">1.21.</span> <span class="toc-text">命令模式（数据库事务机制底层架构实现、撤销和回复）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解释器模式（访问者模、数学表达式动态解析库式）"><span class="toc-number">1.22.</span> <span class="toc-text">解释器模式（访问者模、数学表达式动态解析库式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问者模式-不常用"><span class="toc-number">1.23.</span> <span class="toc-text">访问者模式(不常用)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#策略模式（CRM中报价策略、GUI编程中布局管理器底层架构）"><span class="toc-number">1.24.</span> <span class="toc-text">策略模式（CRM中报价策略、GUI编程中布局管理器底层架构）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模板方法模式（钩子函数、方法回调、好莱坞原则）"><span class="toc-number">1.25.</span> <span class="toc-text">模板方法模式（钩子函数、方法回调、好莱坞原则）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#状态模式（UML状态图、酒店系统房间状态、线程对象状态切换）"><span class="toc-number">1.26.</span> <span class="toc-text">状态模式（UML状态图、酒店系统房间状态、线程对象状态切换）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#观察者模式（广播机制、消息订阅、网络游戏对战原理）"><span class="toc-number">1.27.</span> <span class="toc-text">观察者模式（广播机制、消息订阅、网络游戏对战原理）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#观察者模式（Obserable类和Observer接口、应用场景总结）"><span class="toc-number">1.28.</span> <span class="toc-text">观察者模式（Obserable类和Observer接口、应用场景总结）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备忘录模式（多点备忘、事务操作、回滚数据底层架构）"><span class="toc-number">1.29.</span> <span class="toc-text">备忘录模式（多点备忘、事务操作、回滚数据底层架构）</span></a></li></ol></li></ol>
 		
@@ -547,22 +547,22 @@
 
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目录</strong>
  
  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#设计模式分类"><span class="toc-number">1.</span> <span class="toc-text">设计模式分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#单例模式（应用场景、饿汉式、懒汉式）"><span class="toc-number">1.1.</span> <span class="toc-text">单例模式（应用场景、饿汉式、懒汉式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单例模式（双重检查锁式、静态内部类式、枚举式、UML、类图）"><span class="toc-number">1.2.</span> <span class="toc-text">单例模式（双重检查锁式、静态内部类式、枚举式、UML、类图）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单例模式（反射和反序列化漏洞、多线程环境、CountDownLatch同步类的使用）"><span class="toc-number">1.3.</span> <span class="toc-text">单例模式（反射和反序列化漏洞、多线程环境、CountDownLatch同步类的使用）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单工厂模式（面向对象设计原则、开闭原则、依赖反转原则、迪米特法则）-虽然某种程度不符合设计原则，但实际使用最多"><span class="toc-number">1.4.</span> <span class="toc-text">简单工厂模式（面向对象设计原则、开闭原则、依赖反转原则、迪米特法则）[虽然某种程度不符合设计原则，但实际使用最多]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#工厂方法模式详解-不修改已有类的前提下，通过增加新的工厂类实现扩展"><span class="toc-number">1.5.</span> <span class="toc-text">工厂方法模式详解 [不修改已有类的前提下，通过增加新的工厂类实现扩展]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象工厂模式详解-不可以增加产品，可以增加产品族"><span class="toc-number">1.6.</span> <span class="toc-text">抽象工厂模式详解 [不可以增加产品，可以增加产品族]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建造者模式详解（类图关系）"><span class="toc-number">1.7.</span> <span class="toc-text">建造者模式详解（类图关系）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型模式（Prototype、浅复制、深复制、Clonable接口）"><span class="toc-number">1.8.</span> <span class="toc-text">原型模式（Prototype、浅复制、深复制、Clonable接口）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型模式（反序列化实现深复制、效率对比、创建型模式总结）"><span class="toc-number">1.9.</span> <span class="toc-text">原型模式（反序列化实现深复制、效率对比、创建型模式总结）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#适配器模式（对象适配器、类适配器、开发场景）"><span class="toc-number">1.10.</span> <span class="toc-text">适配器模式（对象适配器、类适配器、开发场景）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代理模式（静态代理）"><span class="toc-number">1.11.</span> <span class="toc-text">代理模式（静态代理）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代理模式（动态代理、开发中常见的场景）"><span class="toc-number">1.12.</span> <span class="toc-text">代理模式（动态代理、开发中常见的场景）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#桥接模式（多层继承结构、银行日志管理、管理系统消息管理、人力资源的奖金计算）"><span class="toc-number">1.13.</span> <span class="toc-text">桥接模式（多层继承结构、银行日志管理、管理系统消息管理、人力资源的奖金计算）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合模式（树状结构、杀毒软件架构、JUnit底层架构、常见开发场景）"><span class="toc-number">1.14.</span> <span class="toc-text">组合模式（树状结构、杀毒软件架构、JUnit底层架构、常见开发场景）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#装饰模式（IO流底层架构、装饰和桥接模式的区别）"><span class="toc-number">1.15.</span> <span class="toc-text">装饰模式（IO流底层架构、装饰和桥接模式的区别）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外观模式（公司注册流程、迪米特法则）"><span class="toc-number">1.16.</span> <span class="toc-text">外观模式（公司注册流程、迪米特法则）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#享元模式（享元池、内部状态、外部状态、线程池、连接池）"><span class="toc-number">1.17.</span> <span class="toc-text">享元模式（享元池、内部状态、外部状态、线程池、连接池）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#责任链模式（公文审批、供应链系统的采购审批、异常链、过滤器和拦截器调用过程）"><span class="toc-number">1.18.</span> <span class="toc-text">责任链模式（公文审批、供应链系统的采购审批、异常链、过滤器和拦截器调用过程）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代器模式（JDK内置迭代器、内部类迭代器）"><span class="toc-number">1.19.</span> <span class="toc-text">迭代器模式（JDK内置迭代器、内部类迭代器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中介者模式（同事协作类、内部类实现）"><span class="toc-number">1.20.</span> <span class="toc-text">中介者模式（同事协作类、内部类实现）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令模式（数据库事务机制底层架构实现、撤销和回复）"><span class="toc-number">1.21.</span> <span class="toc-text">命令模式（数据库事务机制底层架构实现、撤销和回复）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解释器模式（访问者模、数学表达式动态解析库式）"><span class="toc-number">1.22.</span> <span class="toc-text">解释器模式（访问者模、数学表达式动态解析库式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问者模式-不常用"><span class="toc-number">1.23.</span> <span class="toc-text">访问者模式(不常用)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#策略模式（CRM中报价策略、GUI编程中布局管理器底层架构）"><span class="toc-number">1.24.</span> <span class="toc-text">策略模式（CRM中报价策略、GUI编程中布局管理器底层架构）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模板方法模式（钩子函数、方法回调、好莱坞原则）"><span class="toc-number">1.25.</span> <span class="toc-text">模板方法模式（钩子函数、方法回调、好莱坞原则）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#状态模式（UML状态图、酒店系统房间状态、线程对象状态切换）"><span class="toc-number">1.26.</span> <span class="toc-text">状态模式（UML状态图、酒店系统房间状态、线程对象状态切换）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#观察者模式（广播机制、消息订阅、网络游戏对战原理）"><span class="toc-number">1.27.</span> <span class="toc-text">观察者模式（广播机制、消息订阅、网络游戏对战原理）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#观察者模式（Obserable类和Observer接口、应用场景总结）"><span class="toc-number">1.28.</span> <span class="toc-text">观察者模式（Obserable类和Observer接口、应用场景总结）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备忘录模式（多点备忘、事务操作、回滚数据底层架构）"><span class="toc-number">1.29.</span> <span class="toc-text">备忘录模式（多点备忘、事务操作、回滚数据底层架构）</span></a></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
+<p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="yhyecho" data-theme="medium"></div>
 <script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
 </div>
@@ -776,7 +776,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
