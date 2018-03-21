@@ -1,0 +1,518 @@
+
+ <!DOCTYPE HTML>
+<html lang="java javascript">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Java中Synchronized和Volatile关键字 | echo home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="yhyecho">
+    
+
+    
+    <meta name="description" content="线程可见性 共享变量在线程间的可见性可见性: 一个线程对共享变量的修改，能够及时地被其他线程看到。共享变量: 如果一个变量在多个线程的工作内存中都存在副本，那么这个变量就是这几个线程的共享变量。  Java内存模型(Java Memory Model) 描述了Java程序中各种变量(线程共享变量)的访问规则，以及在JVM中将变量存储到内存和从内存中读取出变量这样的底层细节。   所有的变量都存储在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中Synchronized和Volatile关键字">
+<meta property="og:url" content="http://www.yhyecho.com/2017/05/20/Java中Synchronized和Volatile关键字/index.html">
+<meta property="og:site_name" content="echo home">
+<meta property="og:description" content="线程可见性 共享变量在线程间的可见性可见性: 一个线程对共享变量的修改，能够及时地被其他线程看到。共享变量: 如果一个变量在多个线程的工作内存中都存在副本，那么这个变量就是这几个线程的共享变量。  Java内存模型(Java Memory Model) 描述了Java程序中各种变量(线程共享变量)的访问规则，以及在JVM中将变量存储到内存和从内存中读取出变量这样的底层细节。   所有的变量都存储在">
+<meta property="og:locale" content="java javascript">
+<meta property="og:image" content="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/1.png">
+<meta property="og:image" content="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/2.png">
+<meta property="og:image" content="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/3.png">
+<meta property="og:image" content="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/4.png">
+<meta property="og:image" content="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/5.png">
+<meta property="og:image" content="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/6.png">
+<meta property="og:updated_time" content="2018-03-21T02:50:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java中Synchronized和Volatile关键字">
+<meta name="twitter:description" content="线程可见性 共享变量在线程间的可见性可见性: 一个线程对共享变量的修改，能够及时地被其他线程看到。共享变量: 如果一个变量在多个线程的工作内存中都存在副本，那么这个变量就是这几个线程的共享变量。  Java内存模型(Java Memory Model) 描述了Java程序中各种变量(线程共享变量)的访问规则，以及在JVM中将变量存储到内存和从内存中读取出变量这样的底层细节。   所有的变量都存储在">
+<meta name="twitter:image" content="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/1.png">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="echo home">echo home</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:www.yhyecho.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/20/Java中Synchronized和Volatile关键字/" title="Java中Synchronized和Volatile关键字" itemprop="url">Java中Synchronized和Volatile关键字</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="yhyecho" target="_blank" itemprop="author">yhyecho</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-20T12:21:12.000Z" itemprop="datePublished"> Published 2017-05-20</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#线程可见性"><span class="toc-number">1.</span> <span class="toc-text">线程可见性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#可见性"><span class="toc-number">1.1.</span> <span class="toc-text">可见性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java语言层面支持的可见性实现方式"><span class="toc-number">1.2.</span> <span class="toc-text">Java语言层面支持的可见性实现方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指令重排序"><span class="toc-number">1.3.</span> <span class="toc-text">指令重排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#volatile关键字"><span class="toc-number">1.4.</span> <span class="toc-text">volatile关键字</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="线程可见性"><a href="#线程可见性" class="headerlink" title="线程可见性"></a>线程可见性</h2><ul>
+<li>共享变量在线程间的可见性<br>可见性: 一个线程对共享变量的修改，能够及时地被其他线程看到。<br>共享变量: 如果一个变量在多个线程的工作内存中都存在副本，那么这个变量就是这几个线程的共享变量。</li>
+</ul>
+<p>Java内存模型(Java Memory Model) 描述了Java程序中各种变量(线程共享变量)的访问规则，以及在JVM中将变量存储到内存和从内存中读取出变量这样的底层细节。</p>
+<p><img src="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/1.png" alt=""></p>
+<ul>
+<li>所有的变量都存储在主内存中</li>
+<li>每个线程都有自己独立的工作内存，里面保存该线程使用到的变量副本(主内存中该变量的一份拷贝)</li>
+</ul>
+<p>JMM中的两条规定</p>
+<ul>
+<li>线程对共享变量的所有操作都必须在自己的工作内存中进行, 不能直接从主内存中读写</li>
+<li>不同线程之间无法直接访问其他线程工作内存中的变量, 线程间变量值的传递需要通过主内存来完成。</li>
+</ul>
+<p><img src="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/2.png" alt=""><br>共享变量可见性实现的原理<br>线程1对共享变量的修改要想被线程2及时看到, 必须要经过如下的2个步骤:</p>
+<ul>
+<li>把工作内存1中更新过的共享变量刷新到主内存中</li>
+<li>把主内存中最新的共享变量的值更新到工作内存2中</li>
+</ul>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><p>要实现共享变量的可见性，必须保证两点:</p>
+<ul>
+<li>线程修改后的共享变量值能够及时从工作内存刷新到主内存中</li>
+<li>其他线程能够及时把共享变量的最新值从主内存更新到自己的工作内存中</li>
+</ul>
+<h3 id="Java语言层面支持的可见性实现方式"><a href="#Java语言层面支持的可见性实现方式" class="headerlink" title="Java语言层面支持的可见性实现方式"></a>Java语言层面支持的可见性实现方式</h3><ul>
+<li>synchronized</li>
+<li><p>volatile</p>
+</li>
+<li><p>synchronized实现可见性</p>
+<blockquote>
+<p>JMM关于synchronized的两条规定</p>
+</blockquote>
+</li>
+<li>线程解锁前,必须把共享变量的最新值刷新到主内存中</li>
+<li>线程加锁时,将清空工作内存中共享变量的值, 从而使用共享变量时需要从主内存中重新读取最新的值(注意: 加锁与解锁需要是同一把锁)</li>
+<li><p>线程解锁前对共享变量的修改在下次加锁时对其他线程可见</p>
+</li>
+<li><p>原子性(同步)</p>
+</li>
+<li>可见性</li>
+<li>线程执行互斥代码的过程<ol>
+<li>获得互斥锁</li>
+<li>清空工作内存</li>
+<li>从主内存拷贝变量的最新副本到工作内存</li>
+<li>执行代码</li>
+<li>将更改后的共享变量的值刷新到主内存</li>
+<li>释放互斥锁</li>
+</ol>
+</li>
+</ul>
+<h3 id="指令重排序"><a href="#指令重排序" class="headerlink" title="指令重排序"></a>指令重排序</h3><blockquote>
+<p>代码书写的顺序与实际执行的顺序不同, 指令重排序是编译器或处理器为了提高程序性能而做的优化</p>
+<ul>
+<li>编译器优化的重排序(编译器优化)</li>
+<li>指令级并行重排序(处理器优化)</li>
+<li>内存系统的重排序(处理器优化)<br><img src="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/3.png" alt=""></li>
+</ul>
+</blockquote>
+<ul>
+<li>指令重排序<ul>
+<li>as-if-serial语义<blockquote>
+<p>无论如何重排序, 程序执行的结果应该与代码顺序执行的结果一致(Java编译器，运行时和处理器都会保证Java在单线程下遵循as-if-serial语义)<br><img src="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/4.png" alt=""></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>导致共享变量在线程间不可见的原因:</p>
+<ol>
+<li>线程的交叉执行 (synchronized -&gt; 原子性)</li>
+<li>重排序结合线程交叉执行 (synchronized -&gt; 原子性)</li>
+<li>共享变量更新后的值没有在工作内存与主内存间及时更新 (synchronized -&gt; 可见性)</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedDemo</span> </span>&#123;</div><div class="line">    <span class="comment">// 共享变量</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> ready = <span class="keyword">false</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> result = <span class="number">0</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> number = <span class="number">1</span>;</div><div class="line"></div><div class="line">    <span class="comment">// 写操作</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">()</span> </span>&#123;</div><div class="line">        ready = <span class="keyword">true</span>; <span class="comment">// 1.1</span></div><div class="line">        number = <span class="number">2</span>; <span class="comment">// 1.2</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 读操作</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (ready) &#123; <span class="comment">// 2.1</span></div><div class="line">            result = number * <span class="number">3</span>; <span class="comment">// 2.2</span></div><div class="line">        &#125;</div><div class="line">        System.out.println(<span class="string">"result的值为:"</span> + result);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 内部线程类</span></div><div class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadWriteThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</div><div class="line">        <span class="comment">// 根据构造方法中传入的flag参数,确定线程执行读操作还是写操作</span></div><div class="line">        <span class="keyword">private</span> <span class="keyword">boolean</span> flag;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ReadWriteThread</span><span class="params">(<span class="keyword">boolean</span> flag)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.flag = flag;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">if</span> (flag) &#123;</div><div class="line">                <span class="comment">// 构造方法中传入true, 执行写操作</span></div><div class="line">                write();</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">// 构造方法中传入false, 执行读操作</span></div><div class="line">                read();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SynchronizedDemo synDemo = <span class="keyword">new</span> SynchronizedDemo();</div><div class="line">        <span class="comment">// 启动线程执行写操作</span></div><div class="line">        synDemo.new ReadWriteThread(<span class="keyword">true</span>).start();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Thread.sleep(<span class="number">100</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 启动线程执行读操作</span></div><div class="line">        synDemo.new ReadWriteThread(<span class="keyword">false</span>).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h3><ul>
+<li>能够保证volatile变量的可见性</li>
+<li>不能保证volatile变量复合操作的原子性</li>
+<li>volatile实现可见性<blockquote>
+<p>深入来说: 通过加入内存屏障和禁止重排序优化来实现的。</p>
+</blockquote>
+</li>
+<li>对volatile变量执行写操作时, 会在写操作后加入一条store屏障指令</li>
+<li>对volatile变量执行读操作时, 会在读操作前加入一条load屏障指令</li>
+<li><p>通俗地讲: volatile变量在每次被线程访问时, 都强迫从主内存中重读该变量的值, 而当该变量发生变化时, 又会强迫线程将最新的值刷新到主内存。这样任何时刻，不同的线程总能看到该变量的最新值。</p>
+</li>
+<li><p>线程写volatile变量的过程</p>
+<ol>
+<li>改变线程工作内存中volatile变量副本的值</li>
+<li>将改变后的副本值从工作内存刷新到主内存</li>
+</ol>
+</li>
+<li>线程读volatile变量的过程<ol>
+<li>从主内存中读取volatile变量的最新值到线程的工作内存中</li>
+<li>从工作内存中读取volatile变量的副本</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/5.png" alt=""></p>
+<p><img src="https://github-1255880316.cos.ap-beijing.myqcloud.com/Java/JMM/6.png" alt=""><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VolatileDemo</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="comment">/*volatile*/</span> <span class="keyword">int</span> number = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNumber</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.number;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increase</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Thread.sleep(<span class="number">100</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 方法1.</span></div><div class="line">        <span class="comment">//synchronized (this) &#123;</span></div><div class="line">        <span class="comment">//    this.number++;</span></div><div class="line">        <span class="comment">//&#125;</span></div><div class="line"></div><div class="line">        <span class="comment">// 方法2.</span></div><div class="line">        lock.lock();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">this</span>.number++;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            lock.unlock();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">final</span> VolatileDemo volatileDemo = <span class="keyword">new</span> VolatileDemo();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">500</span>; i++) &#123;</div><div class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                    volatileDemo.increase();</div><div class="line">                &#125;</div><div class="line">            &#125;).start();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 如果还有子线程在运行, 主线程就让出CPU资源,</span></div><div class="line">        <span class="comment">// 直到所有的子线程都运行完了, 主线程再继续往下执行</span></div><div class="line">        <span class="keyword">while</span> (Thread.activeCount() &gt; <span class="number">2</span>) &#123;</div><div class="line">            Thread.yield();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        System.out.println(<span class="string">"number:"</span> + volatileDemo.getNumber());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>volatile使用注意事项<blockquote>
+<p>要在多线程中安全的使用volatile变量, 必须同时满足</p>
+</blockquote>
+</li>
+</ul>
+<ol>
+<li>对变量的写入操作不依赖其当前值</li>
+</ol>
+<ul>
+<li>不满足: number++, count = count*5等</li>
+<li>满足: boolean变量, 记录温度变化的变量等</li>
+</ul>
+<ol>
+<li>该变量没有包含在具有其他变量的不变式中</li>
+</ol>
+<ul>
+<li>不满足: 不变式 low &lt; up</li>
+<li>synchronized和volatile比较<ul>
+<li>volatile不需要加锁, 比synchronized更轻量级, 不会阻塞线程</li>
+<li>从内存可见性角度讲, volatile读相当于加锁, volatile写相当于解锁</li>
+<li>synchronized既能保证可见性，又能保证原子性, 而volatile只能保证可见性，无法保证原子性</li>
+</ul>
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.yhyecho.com/2017/05/20/Java中Synchronized和Volatile关键字/" data-title="Java中Synchronized和Volatile关键字 | echo home" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/06/10/自己动手写框架之Struts2/" title="自己动手写框架之Struts2">
+  <strong>上一篇：</strong><br/>
+  <span>
+  自己动手写框架之Struts2</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/10/06/Java从头学之Thread/"  title="Java从头学之Thread">
+ <strong>下一篇：</strong><br/> 
+ <span>Java从头学之Thread
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#线程可见性"><span class="toc-number">1.</span> <span class="toc-text">线程可见性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#可见性"><span class="toc-number">1.1.</span> <span class="toc-text">可见性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java语言层面支持的可见性实现方式"><span class="toc-number">1.2.</span> <span class="toc-text">Java语言层面支持的可见性实现方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指令重排序"><span class="toc-number">1.3.</span> <span class="toc-text">指令重排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#volatile关键字"><span class="toc-number">1.4.</span> <span class="toc-text">volatile关键字</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="yhyecho" data-theme="medium"></div>
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Echo  <br/>
+			This is my blog, Welcome</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/yhyecho" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="yhyecho">yhyecho</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
